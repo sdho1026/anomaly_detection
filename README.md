@@ -28,7 +28,7 @@ The original experiment also includes **BI_FULL** and **BI_ADAPTER** comparison 
 4. Run pretraining and fine-tuning, then the separate test cell.
 5. Read the fold-average metrics and download the result archive.
 
-The dataset is not included. The embedded manifests require the original recordings or byte-identical recordings with matching waveform hashes. Raw waveforms and trained checkpoints are not committed to this repository.
+The dataset is not included. The public repository excludes recording filenames, waveform hashes, and saved fold assignments. Run `prepare_local_metadata.py` on your own dataset ZIP to generate those files locally. Generated folds are not guaranteed to match the earlier saved experimental folds, so this public version does not claim to reproduce an earlier AUROC.
 
 ## Run locally
 
@@ -36,6 +36,7 @@ Install dependencies in an environment with the appropriate CPU or CUDA version 
 
 ```bash
 pip install -r requirements.txt
+python timedart_cnn_adapter/prepare_local_metadata.py --data /path/to/data.zip
 python timedart_cnn_adapter/checks.py
 python timedart_cnn_adapter/cv.py train --data /path/to/data.zip --out /path/to/new_run --device cuda
 python timedart_cnn_adapter/cv.py test --data /path/to/data.zip --out /path/to/new_run --device cuda
@@ -65,10 +66,11 @@ The recordings and earlier test results had already been explored during develop
 - `timedart_cnn_adapter/cv.py`: original fold handling and aggregate reporting.
 - `timedart_cnn_adapter/checks.py`: mask isolation, adapter gradients, frozen-weight invariance, pooling, and checkpoint checks.
 - `timedart_cnn_adapter/config.json`: original training settings.
-- `timedart_cnn_adapter/data.py`, `dataset_manifest.json`, and `fixed_folds.json`: original data adapter and reproducible recording splits.
+- `timedart_cnn_adapter/data.py`: original recording-level data adapter.
+- `timedart_cnn_adapter/prepare_local_metadata.py`: create private manifests and reproducible folds locally; generated files are ignored by Git.
 - `timedart_cnn_adapter/README_KO.md`: detailed original Korean experiment documentation.
 
-The nine original source/configuration files were extracted from the previously executed `TimeDART_144_A3_Extensions_CV5_Colab (1)(1).ipynb` and preserved unchanged. The notebook interface and this README were prepared for this repository. The original archive CRC checks were verified during publication preparation; training and PyTorch checks were not rerun during this upload.
+The original model, data adapter, training, cross-validation, structural checks, and configuration files were extracted from a previously executed notebook and preserved unchanged. Private recording manifests and fold assignments were excluded. The local metadata generator, notebook interface, and documentation were prepared for this public repository. The original archive CRC checks were verified; training and PyTorch checks were not rerun during this upload.
 
 ## References
 

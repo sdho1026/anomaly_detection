@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.venv/
+.ipynb_checkpoints/
+*.dat
+*.pt
+*.pth
+*.zip
+runs/
+results/
+
+# Generated private recording identities and folds
+**/dataset_manifest.json
+**/fixed_folds.json
+**/cv_protocol.json
+**/source_snapshot/
